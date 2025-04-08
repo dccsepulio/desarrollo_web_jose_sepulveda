@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Actividades</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Listado de Actividades</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Portada</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Inicio</th>
+          <th>Término</th>
+          <th>Comuna</th>
+          <th>Sector</th>
+          <th>Tema</th>
+          <th>Organizador</th>
+          <th>Total Fotos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Fila 1 -->
+        <tr onclick="window.location.href='ver_actividad.html?id=1'">
+          <td>2025-03-28 12:00</td>
+          <td>2025-03-28 14:00</td>
+          <td>Santiago</td>
+          <td>Beauchef 850</td>
+          <td>Deporte</td>
+          <td>Juan Pérez</td>
+          <td>2</td>
+        </tr>
+        <!-- Fila 2 -->
+        <tr onclick="window.location.href='ver_actividad.html?id=2'">
+          <td>2025-03-29 19:00</td>
+          <td>2025-03-29 20:00</td>
+          <td>Ñuñoa</td>
+          <td>Plaza Ñuñoa</td>
+          <td>Comida</td>
+          <td>María López</td>
+          <td>1</td>
+        </tr>
+        <!-- Fila 3 -->
+        <tr onclick="window.location.href='ver_actividad.html?id=3'">
+          <td>2025-03-30 18:00</td>
+          <td>-</td>
+          <td>Santiago</td>
+          <td>Parque O'Higgins</td>
+          <td>Música</td>
+          <td>Pedro Hernández</td>
+          <td>5</td>
+        </tr>
+        <!-- Fila 4 -->
+        <tr onclick="window.location.href='ver_actividad.html?id=4'">
+          <td>2025-04-01 09:00</td>
+          <td>2025-04-01 10:00</td>
+          <td>Puente Alto</td>
+          <td>Centro Cultural</td>
+          <td>Baile</td>
+          <td>Carla Soto</td>
+          <td>3</td>
+        </tr>
+        <!-- Fila 5 -->
+        <tr onclick="window.location.href='ver_actividad.html?id=5'">
+          <td>2025-04-02 11:00</td>
+          <td>2025-04-02 13:00</td>
+          <td>La Florida</td>
+          <td>Gimnasio</td>
+          <td>Juegos</td>
+          <td>Raúl Castro</td>
+          <td>2</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p><a href="index.html">Volver a la portada</a></p>
+  </footer>
+
+</body>
+</html>

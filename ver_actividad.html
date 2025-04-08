@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle de Actividad</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <h1>Detalle de la Actividad</h1>
+    <nav>
+      <ul>
+        <li><a href="listado_actividades.html">Volver al Listado</a></li>
+        <li><a href="index.html">Portada</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="detalle-actividad">
+      <!-- Datos ficticios. En un caso real, se podrían obtener de parámetros o base de datos -->
+      <p><strong>Inicio:</strong> 2025-03-30 18:00</p>
+      <p><strong>Término:</strong> -</p>
+      <p><strong>Comuna:</strong> Santiago</p>
+      <p><strong>Sector:</strong> Parque O'Higgins</p>
+      <p><strong>Tema:</strong> Música</p>
+      <p><strong>Descripción:</strong> Evento de música urbana al aire libre.</p>
+      <p><strong>Organizador:</strong> Pedro Hernández</p>
+      <p><strong>Email:</strong> pedro@ejemplo.com</p>
+      <p><strong>Celular:</strong> +569.12345678</p>
+      <p><strong>Contactar por:</strong> WhatsApp (ID: 56912345678)</p>
+      <p><strong>Total Fotos:</strong> 2</p>
+
+      <h3>Fotos (320x240)</h3>
+      <img src="img/foto3.jpg" alt="Foto 1" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
+      <img src="img/foto2.jpg" alt="Foto 2" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
+    </section>
+
+    <!-- Overlay para mostrar foto en grande -->
+    <div id="overlayFoto" class="overlay" style="display:none;">
+      <div class="overlay-content" id="overlayContent">
+        <!-- El <img> se creará dinámicamente con JS -->
+        <br>
+        <button onclick="cerrarFotoGrande()">Cerrar</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="listado_actividades.html">Volver al Listado</a> | <a href="index.html">Portada</a></p>
+  </footer>
+
+</body>
+</html>
