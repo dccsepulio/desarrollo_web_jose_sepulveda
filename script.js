@@ -24,16 +24,32 @@ const comunasPorRegion = {
     }
   }
   
-  // Mostrar/ocultar campo de contacto adicional
-  function mostrarInputContacto() {
-    const contactarPor = document.getElementById("contactarPor").value;
-    const campoIDContacto = document.getElementById("campoIDContacto");
-    
-    if (contactarPor) {
-      campoIDContacto.style.display = "block";
+  // Mostrar input de contacto asociado
+  function mostrarInputContacto(select) {
+    const input = select.nextElementSibling;
+    if (select.value !== "") {
+      input.style.display = "inline-block";
     } else {
-      campoIDContacto.style.display = "none";
+      input.style.display = "none";
+      input.value = "";
     }
+  }
+
+  // Agregar otro bloque de contacto
+  function agregarOtroContacto() {
+    const container = document.getElementById("contactosContainer");
+    const numContactos = container.querySelectorAll(".contacto").length;
+    if (numContactos >= 5) {
+      alert("No puede ingresar más de 5 contactos de forma simultanea.");
+      return;
+    }
+
+    const nuevo = container.firstElementChild.cloneNode(true);
+    nuevo.querySelector('select').value = "";
+    const input = nuevo.querySelector('input');
+    input.value = "";
+    input.style.display = "none";
+    container.appendChild(nuevo);
   }
   
   // Mostrar/ocultar campo "otro tema"
@@ -134,10 +150,17 @@ const comunasPorRegion = {
       }
     }
   
-    // Validar contacto por (opcional, máx 5)
-    // Falta considerar mas de una seleccion, para lo cual podria checkboxes en la proxima iteración
-    if (contactarPor) {
-      if (idContacto.length < 4 || idContacto.length > 50) {
+    // Validar múltiples contactos (opcional, máx 5)
+    const contactos = document.querySelectorAll("#contactosContainer .contacto");
+    if (contactos.length > 5) {
+      alert("No puede ingresar más de 5 contactos de forma simultanea.");
+      return false;
+    }
+    for (const contacto of contactos) {
+      const tipo = contacto.querySelector("select").value;
+      const id = contacto.querySelector("input").value.trim();
+
+      if (tipo && (id.length < 4 || id.length > 50)) {
         alert("El ID/URL de contacto debe tener entre 4 y 50 caracteres.");
         return false;
       }
@@ -148,9 +171,7 @@ const comunasPorRegion = {
       alert("Debe ingresar fecha y hora de inicio.");
       return false;
     }
-    // Podríamos validar formato con regex, pero "datetime-local" ya controla un poco.
-    
-    // Validar término (opcional, si se ingresa, debe ser > que inicio)
+ 
     if (termino) {
       if (termino <= inicio) {
         alert("La fecha/hora de término debe ser mayor a la de inicio.");

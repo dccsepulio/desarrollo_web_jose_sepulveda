@@ -59,16 +59,23 @@
         <input type="tel" id="celularOrganizador" name="celularOrganizador" placeholder="+569.12345678">
         <br><br>
 
-        <label>Contactar por (opcional, máx 5):</label><br>
-        <select id="contactarPor" name="contactarPor" onchange="mostrarInputContacto()">
-          <option value="">Ninguno</option>
-          <option value="whatsapp">Whatsapp</option>
-          <option value="telegram">Telegram</option>
-          <option value="x">X </option>
-          <option value="instagram">Instagram</option>
-          <option value="tiktok">Tiktok</option>
-          <option value="otro">Otro</option>
-        </select>
+        <!-- Compartir evento-->
+        <div id="contactosContainer">
+            <div class="contacto">
+                <label>Contactar por (opcional, máx 5):</label>
+                <select name="contactarPor[]" onchange="mostrarInputContacto(this)">
+                <option value="">Ninguno</option>
+                <option value="whatsapp">Whatsapp</option>
+                <option value="telegram">Telegram</option>
+                <option value="x">X</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">Tiktok</option>
+                <option value="otro">Otro</option>
+                </select>
+                <input type="text" name="idContacto[]" placeholder="ID/URL" minlength="4" maxlength="50" style="display:none;">
+            </div>
+        </div>
+        <button type="button" onclick="agregarOtroContacto()">Agregar otro contacto</button>
         <br><br>
 
         <div id="campoIDContacto" style="display:none;">
