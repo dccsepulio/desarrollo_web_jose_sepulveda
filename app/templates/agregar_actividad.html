@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Agregar Actividad</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
 
@@ -12,7 +12,7 @@
     <h1>Informar Nueva Actividad</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Portada</a></li>
+        <li><a href="{{ url_for('index') }}">Portada</a></li>
       </ul>
     </nav>
   </header>
@@ -134,7 +134,7 @@
   </main>
 
   <footer>
-    <p><a href="index.html">Volver a la portada</a></p>
+    <p><a href="{{ url_for('index') }}">Volver a la portada</a></p>
   </footer>
 
 </body>

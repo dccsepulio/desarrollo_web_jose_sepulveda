@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Actividades</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <header>
+    <h1>Listado de Actividades</h1>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">>Portada</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Inicio</th>
+          <th>Término</th>
+          <th>Comuna</th>
+          <th>Sector</th>
+          <th>Tema</th>
+          <th>Organizador</th>
+          <th>Total Fotos</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for actividad in actividades %}
+        <tr onclick="window.location.href='{{ url_for('ver_actividad', id=actividad.id) }}'">
+          <td>{{ actividad.inicio.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ actividad.termino.strftime('%Y-%m-%d %H:%M') if actividad.termino else '-' }}</td>
+          <td>{{ actividad.comuna }}</td>
+          <td>{{ actividad.sector }}</td>
+          <td>{{ actividad.tema }}</td>
+          <td>{{ actividad.organizador }}</td>
+          <td>{{ actividad.total_fotos }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+
+  <footer>
+    <p><a href="{{ url_for('index') }}">>Volver a la portada</a></p>
+  </footer>
+
+</body>
+</html>

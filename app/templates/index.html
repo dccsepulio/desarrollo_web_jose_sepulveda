@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Portada - Actividades Recreativas</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 <body>
 
   <header>
     <h1>Bienvenido(a) a Actividades Recreativas</h1>
     <nav>
       <ul>
-        <li><a href="agregar_actividad.html">Agregar Actividad</a></li>
-        <li><a href="listado_actividades.html">Ver Listado de Actividades</a></li>
-        <li><a href="estadisticas.html">Estadísticas</a></li>
+        <li><a href="{{ url_for('agregar_actividad') }}">Agregar Actividad</a></li>
+        <li><a href="{{ url_for('listado_actividades') }}">Ver Listado de Actividades</a></li>
+        <li><a href="{{ url_for('estadisticas') }}">Estadísticas</a></li>
       </ul>
     </nav>
   </header>
@@ -38,7 +38,7 @@
           <td>Santiago</td>
           <td>Beauchef 850, terraza</td>
           <td>Escuela de boxeo</td>
-          <td><img src="img/foto1.jpg" alt="Boxeador" width="50"></td>
+          <td><img src="{{ url_for('static', filename='static\img\foto1.jpg') }}"> alt="Boxeador" width="50"></td>
         </tr>
         <tr>
           <td>2025-03-29 19:00</td>
@@ -46,7 +46,7 @@
           <td>Ñuñoa</td>
           <td>Plaza</td>
           <td>Cómo deshidratar fruta</td>
-          <td><img src="img/foto2.jpg" alt="Fruta deshidratada" width="50"></td>
+          <td><img src="{{ url_for('static', filename='static\img\foto2.jpg') }}"> alt="Fruta deshidratada" width="50"></td>
         </tr>
         <tr>
           <td>2025-03-30 18:00</td>
@@ -54,7 +54,7 @@
           <td>Santiago</td>
           <td>Parque O´Higgins</td>
           <td>Música urbana</td>
-          <td><img src="img/foto3.jpg" alt="Grafiti de microfono" width="50"></td>
+          <td><img src="{{ url_for('static', filename='static\img\foto3.jpg') }}"> alt="Grafiti de microfono" width="50"></td>
         </tr>
         <tr>
           <td>2025-04-01 09:30</td>
@@ -62,7 +62,7 @@
           <td>La Florida</td>
           <td>Gimnasio Municipal</td>
           <td>Clase de Zumba</td>
-          <td><img src="img/foto4.jpg" alt="Zumba" width="50"></td>
+          <td><img src="{{ url_for('static', filename='static\img\foto4.jpg') }}"> alt="Zumba" width="50"></td>
         </tr>
         <tr>
           <td>2025-04-12 16:00</td>
@@ -70,14 +70,14 @@
           <td>Providencia</td>
           <td>Café al aire libre</td>
           <td>Charla de tecnología</td>
-          <td><img src="img/foto5.jpg" alt="Charla tec" width="50"></td>
+          <td><img src="{{ url_for('static', filename='static\img\foto5.jpg') }}"> alt="Charla tec" width="50"></td>
         </tr>
       </tbody>
     </table>
   </main>
 
   <footer>
-    <p>Fotos sacadas de <a href="https://pixabay.com/">Pixabay</a></p>
+    <p>Fotos sacadas de <a href="https://pixabay.com/" target="_blank">Pixabay</a></p>
   </footer>
 
 </body>

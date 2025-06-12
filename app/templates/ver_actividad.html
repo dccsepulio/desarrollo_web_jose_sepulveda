@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Detalle de Actividad</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
 
@@ -12,8 +12,8 @@
     <h1>Detalle de la Actividad</h1>
     <nav>
       <ul>
-        <li><a href="listado_actividades.html">Volver al Listado</a></li>
-        <li><a href="index.html">Portada</a></li>
+        <li><a href="{{ url_for('listado_actividades') }}">>Volver al Listado</a></li>
+        <li><a href="{{ url_for('index') }}">>Portada</a></li>
       </ul>
     </nav>
   </header>
@@ -34,8 +34,8 @@
       <p><strong>Total Fotos:</strong> 2</p>
 
       <h3>Fotos (320x240)</h3>
-      <img src="img/foto3.jpg" alt="Foto 1" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
-      <img src="img/foto2.jpg" alt="Foto 2" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
+      <img src="{{ url_for('static', filename='static\img\foto3.jpg') }}" alt="Foto 1" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
+      <img src="{{ url_for('static', filename='static\img\foto2.jpg') }}" alt="Foto 2" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
     </section>
 
     <!-- Overlay para mostrar foto en grande -->
@@ -49,7 +49,7 @@
   </main>
 
   <footer>
-    <p><a href="listado_actividades.html">Volver al Listado</a> | <a href="index.html">Portada</a></p>
+    <p><a href="{{ url_for('listado_actividades') }}">>Volver al Listado</a> | <a href="{{ url_for('index') }}">>Portada</a></p>
   </footer>
 
 </body>
