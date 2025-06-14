@@ -1,56 +1,41 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Detalle de Actividad</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Detalle Actividad{% endblock %}
 
-  <header>
-    <h1>Detalle de la Actividad</h1>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('listado_actividades') }}">>Volver al Listado</a></li>
-        <li><a href="{{ url_for('index') }}">>Portada</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section id="detalle-actividad">
-      <!-- Datos ficticios. En un caso real, se podrían obtener de parámetros o base de datos -->
-      <p><strong>Inicio:</strong> 2025-03-30 18:00</p>
-      <p><strong>Término:</strong> -</p>
-      <p><strong>Comuna:</strong> Santiago</p>
-      <p><strong>Sector:</strong> Parque O'Higgins</p>
-      <p><strong>Tema:</strong> Música</p>
-      <p><strong>Descripción:</strong> Evento de música urbana al aire libre.</p>
-      <p><strong>Organizador:</strong> Pedro Hernández</p>
-      <p><strong>Email:</strong> pedro@ejemplo.com</p>
-      <p><strong>Celular:</strong> +569.12345678</p>
-      <p><strong>Contactar por:</strong> WhatsApp (ID: 56912345678)</p>
-      <p><strong>Total Fotos:</strong> 2</p>
-
-      <h3>Fotos (320x240)</h3>
-      <img src="{{ url_for('static', filename='static\img\foto3.jpg') }}" alt="Foto 1" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
-      <img src="{{ url_for('static', filename='static\img\foto2.jpg') }}" alt="Foto 2" width="320" height="240" onclick="mostrarFotoGrande(this.src)">
-    </section>
-
-    <!-- Overlay para mostrar foto en grande -->
-    <div id="overlayFoto" class="overlay" style="display:none;">
-      <div class="overlay-content" id="overlayContent">
-        <!-- El <img> se creará dinámicamente con JS -->
-        <br>
-        <button onclick="cerrarFotoGrande()">Cerrar</button>
-      </div>
+{% block main %}
+<h2>Detalle de Actividad</h2>
+<ul>
+  <li><strong>Nombre:</strong> {{ actividad.nombre }}</li>
+  <li><strong>Comuna:</strong> {{ actividad.comuna.nombre }}</li>
+  <li><strong>Sector:</strong> {{ actividad.sector }}</li>
+  <li><strong>Inicio:</strong> <time datetime="{{ actividad.dia_hora_inicio.isoformat() }}">{{ actividad.dia_hora_inicio.strftime('%Y-%m-%d %H:%M') }}</time></li>
+  <li><strong>Término:</strong>
+    {% if actividad.dia_hora_termino %}
+      <time datetime="{{ actividad.dia_hora_termino.isoformat() }}">{{ actividad.dia_hora_termino.strftime('%Y-%m-%d %H:%M') }}</time>
+    {% else %}
+      -
+    {% endif %}
+  </li>
+  <li><strong>Descripción:</strong> {{ actividad.descripcion }}</li>
+  <li><strong>Email:</strong> {{ actividad.email }}</li>
+  <li><strong>Celular:</strong> {{ actividad.celular }}</li>
+  <li><strong>Temas:</strong>
+    {% if actividad.temas %}
+      {{ actividad.temas | map(attribute='tema') | join(', ') }}
+    {% else %} — {% endif %}
+  </li>
+  <li><strong>Contactar por:</strong>
+    <ul>
+      {% for c in actividad.contactos %}
+        <li>{{ c.nombre }} → {{ c.identificador }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li><strong>Fotos:</strong>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 0.5em;">
+      {% for f in actividad.fotos %}
+        <img src="{{ url_for('static', filename=f.ruta_archivo) }}" alt="Foto {{ loop.index }}" width="100" style="border-radius: 4px; border: 1px solid #ccc;">
+      {% endfor %}
     </div>
-  </main>
-
-  <footer>
-    <p><a href="{{ url_for('listado_actividades') }}">>Volver al Listado</a> | <a href="{{ url_for('index') }}">>Portada</a></p>
-  </footer>
-
-</body>
-</html>
+  </li>
+</ul>
+{% endblock %}

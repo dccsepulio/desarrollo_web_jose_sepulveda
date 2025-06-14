@@ -1,43 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Estadísticas</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</head>
-<body>
+{% extends "base.html" %}
 
-  <header>
-    <h1>Estadísticas de Actividades</h1>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Portada</a></li>
-      </ul>
-    </nav>
-  </header>
+{% block title %}Estadísticas{% endblock %}
 
-  <main>
-    <section>
-      <h2>1. Actividades por día (Gráfico de líneas)</h2>
-      <!-- Imagen simulando el gráfico -->
-      <img src="{{ url_for('static', filename='img/grafico_lineas.jpg') }}"> alt="Gráfico de líneas" width="500">
-    </section>
-    <section>
-      <h2>2. Actividades por tipo (Gráfico de torta)</h2>
-      <!-- Imagen simulando el gráfico -->
-      <img src="{{ url_for('static', filename='img/grafico_torta.jpg') }}"> alt="Gráfico de torta" width="400">
-    </section>
-    <section>
-      <h2>3. Actividades por horario (Gráfico de barras)</h2>
-      <!-- Imagen simulando el gráfico -->
-      <img src="{{ url_for('static', filename='img/grafico_barras.jpg') }}"> alt="Gráfico de barras" width="500">
-    </section>
-  </main>
+{% block main %}
+<section>
+  <h2>1. Actividades por día (Gráfico de líneas)</h2>
+  <img src="{{ url_for('static', filename='img/grafico_lineas.jpg') }}" alt="Gráfico de líneas mostrando actividades por día" width="500">
+</section>
 
-  <footer>
-    <p>Fotos sacadas de <a href="https://pixabay.com/" target="_blank">Pixabay</a></p>
-  </footer>
+<section>
+  <h2>2. Actividades por tipo (Gráfico de torta)</h2>
+  <img src="{{ url_for('static', filename='img/grafico_torta.jpg') }}" alt="Gráfico de torta con proporción de tipos de actividad" width="400">
+</section>
 
-</body>
-</html>
+<section>
+  <h2>3. Actividades por horario (Gráfico de barras)</h2>
+  <img src="{{ url_for('static', filename='img/grafico_barras.jpg') }}" alt="Gráfico de barras con distribución horaria" width="500">
+</section>
+{% endblock %}

@@ -1,141 +1,89 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Agregar Actividad</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</head>
-<body>
+{% extends "base.html" %}
 
-  <header>
-    <h1>Informar Nueva Actividad</h1>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Portada</a></li>
-      </ul>
-    </nav>
-  </header>
+{% block title %}Agregar Actividad{% endblock %}
 
-  <main>
-    <form id="form-actividad" onsubmit="return validarFormulario(event)">
-      <!-- Sección: ¿Dónde? -->
-      <fieldset>
-        <legend>¿Dónde?</legend>
-        <label for="region">Región (obligatorio):</label><br>
-        <select id="region" name="region" onchange="cargarComunas()" >
-          <option value="">Seleccione una región</option>
-          <option value="Metropolitana">Metropolitana</option>
-          <option value="Valparaíso">Valparaíso</option>
-          <option value="Biobío">Biobío</option>
-          <option value="Araucania">Araucania</option>
-          <!-- Se pueden agregar más -->
-        </select>
-        <br><br>
+{% block main %}
+<form method="post" enctype="multipart/form-data" action="{{ url_for('actividad.agregar') }}">
+  {{ form.hidden_tag() }}
 
-        <label for="comuna">Comuna (obligatorio):</label><br>
-        <select id="comuna" name="comuna">
-          <option value="">Seleccione una comuna</option>
-          <!-- Se cargarán opciones dinámicamente según la región seleccionada -->
-        </select>
-        <br><br>
+  <!-- ¿Dónde? -->
+  <fieldset>
+    <legend>¿Dónde?</legend>
 
-        <label for="sector">Sector (opcional, máx 100 caracteres):</label><br>
-        <input type="text" id="sector" name="sector" maxlength="100">
-      </fieldset>
+    {{ form.region.label }}<br>
+    <select name="{{ form.region.name }}" id="region" required>
+      <option value="" disabled selected>Seleccione una región</option>
+      {% for val, label in form.region.choices %}
+        <option value="{{ val }}">{{ label }}</option>
+      {% endfor %}
+    </select><br><br>
 
-      <!-- Sección: ¿Quién organiza? -->
-      <fieldset>
-        <legend>¿Quién organiza?</legend>
-        <label for="nombreOrganizador">Nombre (obligatorio, máx 200):</label><br>
-        <input type="text" id="nombreOrganizador" name="nombreOrganizador" maxlength="200">
-        <br><br>
+    {{ form.comuna.label }}<br>
+    <select name="{{ form.comuna.name }}" id="comuna" required>
+      <option value="" disabled selected>Seleccione una comuna</option>
+      {% for val, label in form.comuna.choices %}
+        <option value="{{ val }}">{{ label }}</option>
+      {% endfor %}
+    </select><br><br>
 
-        <label for="emailOrganizador">Email (obligatorio, formato email, máx 100):</label><br>
-        <input type="email" id="emailOrganizador" name="emailOrganizador" maxlength="100">
-        <br><br>
+    {{ form.sector.label }}<br>
+    {{ form.sector(size=40) }}
+  </fieldset>
 
-        <label for="celularOrganizador">Número de celular (opcional, formato +NNN.NNNNNNNN):</label><br>
-        <input type="tel" id="celularOrganizador" name="celularOrganizador" placeholder="+569.12345678">
-        <br><br>
+  <!-- ¿Quién organiza? -->
+  <fieldset>
+    <legend>¿Quién organiza?</legend>
+    {{ form.nombre.label }}<br>{{ form.nombre(size=40) }}<br><br>
+    {{ form.email.label }}<br>{{ form.email(size=40) }}<br><br>
+    {{ form.celular.label }}<br>{{ form.celular(size=20) }}<br><br>
 
-        <!-- Compartir evento-->
-        <div id="contactosContainer">
-            <div class="contacto">
-                <label>Contactar por (opcional, máx 5):</label>
-                <select name="contactarPor[]" onchange="mostrarInputContacto(this)">
-                <option value="">Ninguno</option>
-                <option value="whatsapp">Whatsapp</option>
-                <option value="telegram">Telegram</option>
-                <option value="x">X</option>
-                <option value="instagram">Instagram</option>
-                <option value="tiktok">Tiktok</option>
-                <option value="otro">Otro</option>
-                </select>
-                <input type="text" name="idContacto[]" placeholder="ID/URL" minlength="4" maxlength="50" style="display:none;">
-            </div>
-        </div>
-        <button type="button" onclick="agregarOtroContacto()">Agregar otro contacto</button>
-        <br><br>
-
-        <div id="campoIDContacto" style="display:none;">
-          <label for="idContacto">ID/URL (4-50 caracteres):</label><br>
-          <input type="text" id="idContacto" name="idContacto" minlength="4" maxlength="50">
-        </div>
-      </fieldset>
-
-      <!-- Sección: ¿Cuándo y de qué trata? -->
-      <fieldset>
-        <legend>¿Cuándo y de qué trata?</legend>
-        <label for="inicio">Día hora inicio (obligatorio):</label><br>
-        <input type="datetime-local" id="inicio" name="inicio">
-        <br><br>
-
-        <label for="termino">Día hora término (opcional, > inicio):</label><br>
-        <input type="datetime-local" id="termino" name="termino">
-        <br><br>
-
-        <label for="descripcion">Descripción (opcional):</label><br>
-        <textarea id="descripcion" name="descripcion" cols="50" rows="10"></textarea>
-        <br><br>
-
-        <label for="tema">Tema (obligatorio):</label><br>
-        <select id="tema" name="tema" onchange="mostrarOtroTema()">
-          <option value="">Seleccione tema</option>
-          <option value="música">Música</option>
-          <option value="deporte">Deporte</option>
-          <option value="ciencias">Ciencias</option>
-          <option value="religión">Religión</option>
-          <option value="política">Política</option>
-          <option value="tecnología">Tecnología</option>
-          <option value="juegos">Juegos</option>
-          <option value="baile">Baile</option>
-          <option value="comida">Comida</option>
+    <div id="contactosContainer">
+      <div class="contacto">
+        <label>Medio de contacto:</label>
+        <select name="contact_nombre[]" onchange="toggleId(this)">
+          <option value="" selected disabled>Seleccione medio</option>
+          <option value="whatsapp">Whatsapp</option>
+          <option value="telegram">Telegram</option>
+          <option value="x">X</option>
+          <option value="instagram">Instagram</option>
+          <option value="tiktok">Tiktok</option>
           <option value="otro">Otro</option>
         </select>
-        <br><br>
 
-        <div id="campoOtroTema" style="display:none;">
-          <label for="otroTemaTxt">Describa el tema (3-15 caracteres):</label><br>
-          <input type="text" id="otroTemaTxt" name="otroTemaTxt" minlength="3" maxlength="15">
-        </div>
-        <br>
+        <input type="text" name="contact_id[]" placeholder="ID/URL"
+               minlength="4" maxlength="50" style="display:none;">
+        <button type="button" class="rem" onclick="remContacto(this)">✕</button>
+      </div>
+    </div>
+    <button type="button" id="btnAddContacto" onclick="addContacto()">Agregar otro contacto</button>
+  </fieldset>
 
-        <label>Foto(s) de la actividad (1-5 fotos obligatorias):</label><br>
-        <input type="file" name="fotoActividad" id="fotoActividad" accept="image/*" onchange="validarFotos()" >
-        <button type="button" onclick="agregarOtraFoto()">Agregar otra foto</button>
-        <div id="contenedorFotos"></div>
-      </fieldset>
+  <!-- ¿Cuándo y de qué trata? -->
+  <fieldset>
+    <legend>¿Cuándo y de qué trata?</legend>
+    {{ form.inicio.label }}<br>{{ form.inicio(type="datetime-local") }}<br><br>
+    {{ form.termino.label }}<br>{{ form.termino(type="datetime-local") }}<br><br>
 
-      <br>
-      <button type="submit" id="btnAgregarActividad">Agregar esta actividad</button>
-      <!-- El mensaje de confirmación se manejará vía JavaScript -->
-    </form>
-  </main>
+    {{ form.descripcion.label }}<br>{{ form.descripcion(rows=4, cols=50) }}<br><br>
 
-  <footer>
-    <p><a href="{{ url_for('index') }}">Volver a la portada</a></p>
-  </footer>
+    {{ form.temas.label }}<br>
+    <select name="{{ form.temas.name }}" multiple id="temas" size="5">
+      {% for val, label in form.temas.choices %}
+        <option value="{{ val }}">{{ label }}</option>
+      {% endfor %}
+    </select><br><br>
 
-</body>
-</html>
+    <div id="campoOtroTema" style="display:none;">
+      {{ form.glosa_otro.label }}<br>{{ form.glosa_otro(size=15) }}
+    </div><br>
+
+    <label>Fotos (1 – 5):</label><br>
+    {{ form.fotos(id="fotosInput", accept="image/*", multiple=False) }}
+    <button type="button" id="btnAddFoto">Agregar otra foto</button>
+    <div id="contenedorFotos"></div>
+  </fieldset>
+
+  <br>
+  <button type="submit" id="btnAgregarActividad">Agregar esta actividad</button>
+</form>
+{% endblock %}

@@ -1,13 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <title>{% block title %}Actividades Recreativas{% endblock %}</title>
+        <link 
+            rel="stylesheet" 
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+        <link 
+            rel="icon" 
+            href="{{ url_for('static', filename='favicon.ico') }}"
+        />
+
         {% block css %}{% endblock %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </head>
     <body>
-        {% block content %}{% endblock %} {% block javascript %}{% endblock %}
+        <header>
+            {% block header %}
+            <h1>Actividades Recreativas</h1>
+            <nav>
+            <ul class="horizontal-menu">
+                <li><a href="{{ url_for('main.index') }}">Portada</a></li>
+                <li><a href="{{ url_for('actividad.agregar') }}">Agregar Actividad</a></li>
+                <li><a href="{{ url_for('main.listado_actividades') }}">Listado de Actividades</a></li>
+                <li><a href="{{ url_for('main.estadisticas') }}">Estadísticas</a></li>
+            </ul>
+            </nav>
+            {% endblock %}
+        </header>
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert" style="margin: 1em 0;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block main %}{% endblock %}
+            {% block javascript %}{% endblock %}
+        </main>
+        <footer>
+            {% block footer %}
+            <p>Fotos sacadas de <a href="https://pixabay.com/" target="_blank">Pixabay</a></p>
+            {% endblock %}
+        </footer>
     </body>
 </html>

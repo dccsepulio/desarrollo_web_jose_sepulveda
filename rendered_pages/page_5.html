@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Agregar Actividad</title>
+        <link 
+            rel="stylesheet" 
+            href="/static/css/style.css"
+        />
+        <link 
+            rel="icon" 
+            href="/static/favicon.ico"
+        />
+
+        
+
+        <script src="/static/js/script.js"></script>
+    </head>
+    <body>
+        <header>
+            
+            <h1>Actividades Recreativas</h1>
+            <nav>
+            <ul class="horizontal-menu">
+                <li><a href="/">Portada</a></li>
+                <li><a href="/agregar">Agregar Actividad</a></li>
+                <li><a href="/actividades">Listado de Actividades</a></li>
+                <li><a href="/estadisticas">Estadísticas</a></li>
+            </ul>
+            </nav>
+            
+        </header>
+        <main>
+            
+            
+            
+            
+<form method="post" enctype="multipart/form-data" action="/agregar">
+  <input id="csrf_token" name="csrf_token" type="hidden" value="IjgxY2JmYTQ2ZTY4ODk3YWI1MGEwNzA5ZTYwNmUzODM4OTIyMWNlZjIi.aEzUUA.Wg7B9JTr466o_HklxNmhwRWlGGc">
+
+  <!-- ¿Dónde? -->
+  <fieldset>
+    <legend>¿Dónde?</legend>
+
+    <label for="region">Región</label><br>
+    <select name="region" id="region" required>
+      <option value="" disabled selected>Seleccione una región</option>
+      
+        <option value="11">Región Aisén del General Carlos Ibáñez del Campo</option>
+      
+        <option value="15">Región Arica y Parinacota</option>
+      
+        <option value="2">Región de Antofagasta</option>
+      
+        <option value="3">Región de Atacama</option>
+      
+        <option value="4">Región de Coquimbo </option>
+      
+        <option value="9">Región de La Araucanía</option>
+      
+        <option value="10">Región de Los Lagos</option>
+      
+        <option value="14">Región de Los Ríos</option>
+      
+        <option value="12">Región de Magallanes y la Antártica Chilena</option>
+      
+        <option value="1">Región de Tarapacá</option>
+      
+        <option value="5">Región de Valparaíso</option>
+      
+        <option value="8">Región del Biobío</option>
+      
+        <option value="6">Región del Libertador Bernardo O&#39;Higgins</option>
+      
+        <option value="7">Región del Maule</option>
+      
+        <option value="16">Región del Ñuble</option>
+      
+        <option value="13">Región Metropolitana de Santiago </option>
+      
+    </select><br><br>
+
+    <label for="comuna">Comuna</label><br>
+    <select name="comuna" id="comuna" required>
+      <option value="" disabled selected>Seleccione una comuna</option>
+      
+    </select><br><br>
+
+    <label for="sector">Sector</label><br>
+    <input id="sector" maxlength="100" name="sector" size="40" type="text" value="">
+  </fieldset>
+
+  <!-- ¿Quién organiza? -->
+  <fieldset>
+    <legend>¿Quién organiza?</legend>
+    <label for="nombre">Organizador</label><br><input id="nombre" maxlength="200" name="nombre" required size="40" type="text" value=""><br><br>
+    <label for="email">Email</label><br><input id="email" maxlength="100" name="email" required size="40" type="text" value=""><br><br>
+    <label for="celular">Celular</label><br><input id="celular" name="celular" size="20" type="text" value=""><br><br>
+
+    <div id="contactosContainer">
+      <div class="contacto">
+        <label>Medio de contacto:</label>
+        <select name="contact_nombre[]" onchange="toggleId(this)">
+          <option value="" selected disabled>Seleccione medio</option>
+          <option value="whatsapp">Whatsapp</option>
+          <option value="telegram">Telegram</option>
+          <option value="x">X</option>
+          <option value="instagram">Instagram</option>
+          <option value="tiktok">Tiktok</option>
+          <option value="otro">Otro</option>
+        </select>
+
+        <input type="text" name="contact_id[]" placeholder="ID/URL"
+               minlength="4" maxlength="50" style="display:none;">
+        <button type="button" class="rem" onclick="remContacto(this)">✕</button>
+      </div>
+    </div>
+    <button type="button" id="btnAddContacto" onclick="addContacto()">Agregar otro contacto</button>
+  </fieldset>
+
+  <!-- ¿Cuándo y de qué trata? -->
+  <fieldset>
+    <legend>¿Cuándo y de qué trata?</legend>
+    <label for="inicio">Inicio</label><br><input id="inicio" name="inicio" required type="datetime-local" value=""><br><br>
+    <label for="termino">Término</label><br><input id="termino" name="termino" type="datetime-local" value=""><br><br>
+
+    <label for="descripcion">Descripción</label><br><textarea cols="50" id="descripcion" maxlength="500" name="descripcion" rows="4">
+</textarea><br><br>
+
+    <label for="temas">Temas</label><br>
+    <select name="temas" multiple id="temas" size="5">
+      
+        <option value="música">Música</option>
+      
+        <option value="deporte">Deporte</option>
+      
+        <option value="ciencias">Ciencias</option>
+      
+        <option value="religión">Religión</option>
+      
+        <option value="política">Política</option>
+      
+        <option value="tecnología">Tecnología</option>
+      
+        <option value="juegos">Juegos</option>
+      
+        <option value="baile">Baile</option>
+      
+        <option value="comida">Comida</option>
+      
+        <option value="otro">Otro</option>
+      
+    </select><br><br>
+
+    <div id="campoOtroTema" style="display:none;">
+      <label for="glosa_otro">Otro tema</label><br><input id="glosa_otro" maxlength="15" minlength="3" name="glosa_otro" size="15" type="text" value="">
+    </div><br>
+
+    <label>Fotos (1 – 5):</label><br>
+    <input accept="image/*" id="fotosInput" multiple name="fotos" required type="file">
+    <button type="button" id="btnAddFoto">Agregar otra foto</button>
+    <div id="contenedorFotos"></div>
+  </fieldset>
+
+  <br>
+  <button type="submit" id="btnAgregarActividad">Agregar esta actividad</button>
+</form>
+
+            
+        </main>
+        <footer>
+            
+            <p>Fotos sacadas de <a href="https://pixabay.com/" target="_blank">Pixabay</a></p>
+            
+        </footer>
+    </body>
+</html>

@@ -1,84 +1,53 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Portada - Actividades Recreativas</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-<body>
+{% extends "base.html" %}
 
-  <header>
-    <h1>Bienvenido(a) a Actividades Recreativas</h1>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('agregar_actividad') }}">Agregar Actividad</a></li>
-        <li><a href="{{ url_for('listado_actividades') }}">Ver Listado de Actividades</a></li>
-        <li><a href="{{ url_for('estadisticas') }}">Estadísticas</a></li>
-      </ul>
-    </nav>
-  </header>
+{% block title %}Actividades Recreativas{% endblock %}
 
-  <main>
-    <h2>Últimas 5 actividades agregadas</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Inicio</th>
-          <th>Término</th>
-          <th>Comuna</th>
-          <th>Sector</th>
-          <th>Tema</th>
-          <th>Foto</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2025-03-28 12:00</td>
-          <td>2025-03-28 14:00</td>
-          <td>Santiago</td>
-          <td>Beauchef 850, terraza</td>
-          <td>Escuela de boxeo</td>
-          <td><img src="{{ url_for('static', filename='static\img\foto1.jpg') }}"> alt="Boxeador" width="50"></td>
-        </tr>
-        <tr>
-          <td>2025-03-29 19:00</td>
-          <td>2025-03-29 20:00</td>
-          <td>Ñuñoa</td>
-          <td>Plaza</td>
-          <td>Cómo deshidratar fruta</td>
-          <td><img src="{{ url_for('static', filename='static\img\foto2.jpg') }}"> alt="Fruta deshidratada" width="50"></td>
-        </tr>
-        <tr>
-          <td>2025-03-30 18:00</td>
-          <td>-</td>
-          <td>Santiago</td>
-          <td>Parque O´Higgins</td>
-          <td>Música urbana</td>
-          <td><img src="{{ url_for('static', filename='static\img\foto3.jpg') }}"> alt="Grafiti de microfono" width="50"></td>
-        </tr>
-        <tr>
-          <td>2025-04-01 09:30</td>
-          <td>2025-04-01 11:00</td>
-          <td>La Florida</td>
-          <td>Gimnasio Municipal</td>
-          <td>Clase de Zumba</td>
-          <td><img src="{{ url_for('static', filename='static\img\foto4.jpg') }}"> alt="Zumba" width="50"></td>
-        </tr>
-        <tr>
-          <td>2025-04-12 16:00</td>
-          <td>2025-04-12 19:00</td>
-          <td>Providencia</td>
-          <td>Café al aire libre</td>
-          <td>Charla de tecnología</td>
-          <td><img src="{{ url_for('static', filename='static\img\foto5.jpg') }}"> alt="Charla tec" width="50"></td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
-
-  <footer>
-    <p>Fotos sacadas de <a href="https://pixabay.com/" target="_blank">Pixabay</a></p>
-  </footer>
-
-</body>
-</html>
+{% block main %}
+<table>
+  <thead>
+    <tr>
+      <th>Inicio</th>
+      <th>Término</th>
+      <th>Comuna</th>
+      <th>Sector</th>
+      <th>Temas</th>
+      <th>Foto</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in actividades %}
+      <tr>
+        <td>{{ a.dia_hora_inicio.strftime('%d-%m-%Y %H:%M') }}</td>
+        <td>
+          {% if a.dia_hora_termino %}
+            {{ a.dia_hora_termino.strftime('%d-%m-%Y %H:%M') }}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td>{{ a.comuna.nombre }}</td>
+        <td>{{ a.sector or '—' }}</td>
+        <td>
+          {% if a.temas %}
+            {{ a.temas | map(attribute='tema') | join(', ') }}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td>
+          {% if a.fotos %}
+            <img src="{{ url_for('static', filename=a.fotos[0].ruta_archivo) }}"
+                 alt="foto {{ a.nombre }}" width="60">
+          {% else %}
+            —
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="6" style="text-align:center;">No hay actividades registradas.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

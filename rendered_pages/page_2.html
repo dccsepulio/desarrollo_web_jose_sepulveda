@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Listado de Actividades</title>
+        <link 
+            rel="stylesheet" 
+            href="/static/css/style.css"
+        />
+        <link 
+            rel="icon" 
+            href="/static/favicon.ico"
+        />
+
+        
+
+        <script src="/static/js/script.js"></script>
+    </head>
+    <body>
+        <header>
+            
+            <h1>Actividades Recreativas</h1>
+            <nav>
+            <ul class="horizontal-menu">
+                <li><a href="/">Portada</a></li>
+                <li><a href="/agregar">Agregar Actividad</a></li>
+                <li><a href="/actividades">Listado de Actividades</a></li>
+                <li><a href="/estadisticas">Estadísticas</a></li>
+            </ul>
+            </nav>
+            
+        </header>
+        <main>
+            
+            
+            
+            
+<h2>Actividades registradas</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Inicio</th>
+      <th scope="col">Término</th>
+      <th scope="col">Comuna</th>
+      <th scope="col">Sector</th>
+      <th scope="col">Temas</th>
+      <th scope="col">Organizador</th>
+      <th scope="col">Total Fotos</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr onclick="location.href='/actividad/16'">
+      <td>03-06-2025 20:34</td>
+
+      <td>
+        
+          —
+        
+      </td>
+
+      <td>Curacautin</td>
+      <td>nose</td>
+      <td>Ciencias</td>
+      <td>bob</td>
+      <td>1</td>
+    </tr>
+  
+    <tr onclick="location.href='/actividad/15'">
+      <td>11-06-2025 20:30</td>
+
+      <td>
+        
+          —
+        
+      </td>
+
+      <td>Curaco de Velez</td>
+      <td>aafw</td>
+      <td>Religión</td>
+      <td>bob</td>
+      <td>1</td>
+    </tr>
+  
+    <tr onclick="location.href='/actividad/14'">
+      <td>05-06-2025 20:28</td>
+
+      <td>
+        
+          —
+        
+      </td>
+
+      <td>Cochrane</td>
+      <td>nose</td>
+      <td>Otro (Prueba)</td>
+      <td>toore</td>
+      <td>1</td>
+    </tr>
+  
+    <tr onclick="location.href='/actividad/13'">
+      <td>11-06-2025 20:24</td>
+
+      <td>
+        
+          29-06-2025 20:24
+        
+      </td>
+
+      <td>Punta Arenas</td>
+      <td>aafw</td>
+      <td>Otro (Prueba)</td>
+      <td>toor</td>
+      <td>3</td>
+    </tr>
+  
+    <tr onclick="location.href='/actividad/12'">
+      <td>29-05-2025 20:08</td>
+
+      <td>
+        
+          —
+        
+      </td>
+
+      <td>Pemuco</td>
+      <td>fwewf</td>
+      <td>Deporte, Ciencias, Religión</td>
+      <td>bob</td>
+      <td>1</td>
+    </tr>
+  
+  </tbody>
+</table>
+
+<nav class="paginacion">
+  
+  Página 1 de 4
+  
+    <a href="/actividades?page=2">Siguiente »</a>
+  
+</nav>
+
+            
+        </main>
+        <footer>
+            
+            <p>Fotos sacadas de <a href="https://pixabay.com/" target="_blank">Pixabay</a></p>
+            
+        </footer>
+    </body>
+</html>

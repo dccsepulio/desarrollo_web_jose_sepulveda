@@ -1,26 +1,102 @@
-# desarrollo_web_jose_sepulveda
-Repositorio creado para Privacidad de datos CC5215-1, en concreto para las tareas sumativas del ramo.
+# desarrollo_web_jose_sepulveda Tarea 2  
+Aplicación Flask + MySQL que transforma el prototipo de la Tarea 1 en un sistema funcional con persistencia.
 
-## Prototipo Actividades Recreativas
+## Actividades Recreativas — Implementación back-end
 
-Este es el prototipo para la tarea, que incluye:
-- Portada con últimas 5 actividades.
-- Formulario de ingreso con validaciones en JavaScript.
-- Listado de actividades con 5 registros de ejemplo.
-- Vista de detalle con ampliación de fotos.
-- Página de estadísticas con 3 gráficos (simulados con imágenes).
+Incluye:
+- **Portada**: últimas 5 actividades recién creadas.
+- **Formulario “Agregar actividad”**  
+  * Validaciones JavaScript + validaciones servidor-side con WTForms.  
+  * Subida de entre 1 y 5 fotos; se almacenan en `static/uploads/`.
+- **Listado**: paginación de 5 en 5; clic → detalle.
+- **Detalle**: muestra todos los datos, contactos y galería flexible (sin bullets).
+- **API auxiliar**: `/api/comunas?region_id=<id>` para autocompletar el combo de comunas.
+- **Datos demo**: once actividades pre-cargadas con organizador, tema y foto.
 
 ### Decisiones de diseño
-- Se decidió usar un overlay para mostrar las fotos en tamaño grande.
-- Se usa un JSON básico (`const comunasPorRegion`) para cargar las comunas.
-- Los gráficos de estadísticas son imágenes estáticas.
+- **SQLAlchemy + Blueprints**: fácil de extender en T3 (estadísticas).
+- **ENUM limpio en utf8mb4**: se ejecuta el `.sql` con `--default-character-set=utf8mb4` para evitar mojibake.
+- **Rutas de foto relativas** : hay una carpeta img/ que se conserva de tarea1
+- **Filtro Jinja `listar_temas`**: “Otro (Cultura)” cuando el tema es `otro`.
+- **Mensajes flash** para feedback; overlay JS solo para previsualizar fotos, no para alerta final.
 
-### Cómo usar
-1. Abrir `index.html` en el navegador.
-2. Navegar con los enlaces.
-3. Probar el formulario en `agregar_actividad.html`.
+### Estructura para la tarea 2
+```bash
+/mi-proyecto
+├── .venv/
+│
+├── app/
+│   ├── routes/
+│   │   ├── actividad.py
+│   │   └── main.py
+│   │
+│   ├── database/
+│   │   ├── db.py
+│   │   ├── init_db.py
+│   │   ├── datos_demo.py
+│   │   ├── tarea2.sql
+│   │   └── region-comuna.sql
+│   │
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── agregar_actividad.html
+│   │   ├── listado_actividades.html
+│   │   ├── estadisticas.html
+│   │   └── ver_actividad.html
+│   │
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   └── script.js
+│   │   ├── img/
+│   │   │   ├── foto1.jpg
+│   │   │   └── ...
+│   │   └── uploads/
+│   │
+│   ├── __init__.py
+│   └── forms.py
+│
+├── requirements.txt
+├── run.py
+└── README.md
+```
+
+## Cómo usar
+
+1. Crear entorno virtual.
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+2. Installar dependencias.
+```bash
+pip install -r requirements.txt
+```
+# pip freeze > requirements.txt
+
+
+3. Crear la base y poblar regiones/comunas.
+```bash
+mysql --default-character-set=utf8mb4 -u cc5002 -p < app\database\tarea2.sql
+mysql --default-character-set=utf8mb4 -u cc5002 -p tarea2 < app\database\region-comuna.sql
+```
+Nota: la contraseña esta en el enunciado
+
+4. Cargar datos de ejemplo.
+```bash
+python -m app.database.datos_demo
+```
+
+5. Abrir app.
+```bash
+python run.py
+```
+Visitar http://localhost:5000
 
 ### Validación
-- Probado en Chrome y Firefox en resoluciones 1920x1080 y 1366x768.
-- Se validó con la herramienta de W3C para HTML y CSS.
-
+- Probado en Python 3.12, Flask 3.0 y MySQL 8.0.
+- HTML 5 y CSS 3 verificados con el validador W3C.
+- Navegadores: Chrome 126, Firefox 127 en 1920 × 1080 y 1366 × 768.
