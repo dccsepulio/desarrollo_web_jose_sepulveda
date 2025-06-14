@@ -1,6 +1,7 @@
-from sqlalchemy import  Column, BigInteger, String, ForeignKey, DateTime, Enum
+from sqlalchemy import  Column, BigInteger, String, ForeignKey, DateTime, Enum, func
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 DB_NAME = "tarea2"
 DB_USERNAME = "cc5002"
@@ -64,4 +65,12 @@ class Actividad(db.Model):
     contactos = relationship('ContactarPor', cascade='all, delete-orphan')
     fotos = relationship('Foto', cascade='all, delete-orphan')
 
-# --- Database Functions ---
+class Comentario(db.Model):
+    __tablename__ = 'comentario'
+    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    actividad_id = Column(BigInteger, ForeignKey('actividad.id'), nullable=False)
+    nombre = Column(String(80),  nullable=False)
+    texto = Column(String(500), nullable=False)
+    fecha = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    actividad = relationship('Actividad', backref='comentarios')

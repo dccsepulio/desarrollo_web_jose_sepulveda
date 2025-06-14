@@ -159,12 +159,9 @@
       btnAddFoto.onclick = createFileInput;
     });
     /* 5. Validación y confirmación de envío */
-    const form = document.querySelector('form');    // único form de la vista
-    form?.addEventListener('submit', evt => {
-      if (!validarFormulario()) {
-        evt.preventDefault();
-        return;
-      }
+    const formActividad = document.getElementById('formActividad');   // ← ponle este id en la plantilla si aún no lo tiene
+    formActividad?.addEventListener('submit', evt => {
+      if (!validarFormulario()) { evt.preventDefault(); return; }
       if (!confirm('¿Está seguro que desea agregar esta actividad?')) {
         evt.preventDefault();
       }
@@ -217,8 +214,8 @@
     const val = id => (document.getElementById(id)?.value || '').trim();
 
     // Region / Comuna
-    if (!val('region')) { alert('Debe seleccionar una región.'); return false; }
-    if (!val('comuna')) { alert('Debe seleccionar una comuna.'); return false; }
+    if (document.getElementById('region') && !val('region')) { alert('Debe seleccionar una región.'); return false; }
+    if (document.getElementById('comuna') && !val('comuna')) { alert('Debe seleccionar una comuna.'); return false; }
 
     // Organizador
     const nom = val('nombre');

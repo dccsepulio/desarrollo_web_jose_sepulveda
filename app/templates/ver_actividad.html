@@ -30,6 +30,8 @@
       {% endfor %}
     </ul>
   </li>
+</ul>
+<ul>
   <li><strong>Fotos:</strong>
     <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 0.5em;">
       {% for f in actividad.fotos %}
@@ -38,4 +40,29 @@
     </div>
   </li>
 </ul>
+<section id="comentarios">
+  <h3>Comentarios</h3>
+  <ul id="listaComentarios">
+    <li>Cargando comentarios…</li>
+  </ul>
+
+  <h4>Agregar comentario</h4>
+  <form id="formComentario" method="post">
+    {{ comentario_form.csrf_token }}
+    <p>
+      {{ comentario_form.nombre.label }}<br>
+      {{ comentario_form.nombre(size=40) }}
+    </p>
+    <p>
+      {{ comentario_form.texto.label }}<br>
+      {{ comentario_form.texto(rows=4, cols=50) }}
+    </p>
+    <button type="submit">Agregar comentario</button>
+  </form>
+</section>
+
+<script id="comentarios-script"
+        data-actividad="{{ actividad.id }}"
+        src="{{ url_for('static', filename='js/comentarios.js') }}">
+</script>
 {% endblock %}

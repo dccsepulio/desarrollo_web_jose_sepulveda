@@ -9,6 +9,69 @@ fmt = "%Y-%m-%d %H:%M"
 
 # Lista de actividades con nombres de comuna
 BASE_ACTIVIDADES = [
+    # 1) duplicamos 28-mar para que el día tenga 2 eventos
+    {
+        "inicio": "2025-03-28 18:00", "termino": "2025-03-28 19:30",
+        "comuna_nombre": "Santiago", "sector": "Cancha lateral",
+        "nombre": "Extra boxeo", "tema": "deporte", "glosa_otro": None,
+        "email": "boxeo2@example.com", "celular": "912340001",
+        "descripcion": "Combate amistoso de exhibición", "foto": "foto12.jpg"
+    },
+    # 2) y 3) 15-abr tendrá 3 actividades (mañana, mediodía, tarde)
+    {
+        "inicio": "2025-04-15 13:00", "termino": "2025-04-15 14:00",
+        "comuna_nombre": "Puente Alto", "sector": "Sala multiuso",
+        "nombre": "Extra ciencias", "tema": "ciencias", "glosa_otro": None,
+        "email": "ciencia2@example.com", "celular": "912340002",
+        "descripcion": "Taller de cohetes de agua", "foto": "foto13.jpg"
+    },
+    {
+        "inicio": "2025-04-15 19:00", "termino": "2025-04-15 20:30",
+        "comuna_nombre": "Puente Alto", "sector": "Auditorio",
+        "nombre": "Extra música", "tema": "música", "glosa_otro": None,
+        "email": "musica2@example.com", "celular": "912340003",
+        "descripcion": "Jam session abierta", "foto": "foto14.jpg"
+    },
+    # 4) segundo evento el 12-abr (tarde) para que suba a 2
+    {
+        "inicio": "2025-04-12 09:00", "termino": "2025-04-12 11:00",
+        "comuna_nombre": "Providencia", "sector": "Parque Inés de Suárez",
+        "nombre": "Extra tecnología", "tema": "tecnologia", "glosa_otro": None,
+        "email": "tec2@example.com", "celular": "912340004",
+        "descripcion": "Demostración de drones", "foto": "foto15.jpg"
+    },
+    # 5) segundo evento el 20-abr
+    {
+        "inicio": "2025-04-20 10:00", "termino": "2025-04-20 11:30",
+        "comuna_nombre": "Maipú", "sector": "Plaza de armas",
+        "nombre": "Extra baile", "tema": "baile", "glosa_otro": None,
+        "email": "baile2@example.com", "celular": "912340005",
+        "descripcion": "Clases de cueca masivas", "foto": "foto16.jpg"
+    },
+    # 6) segundo evento el 27-abr (mediodía)
+    {
+        "inicio": "2025-04-27 12:30", "termino": "2025-04-27 13:30",
+        "comuna_nombre": "Independencia", "sector": "Estadio municipal",
+        "nombre": "Extra deporte", "tema": "deporte", "glosa_otro": None,
+        "email": "deporte2@example.com", "celular": "912340006",
+        "descripcion": "Torneo relámpago de básquet", "foto": "foto17.jpg"
+    },
+    # 7) y 8) agregamos mayo para que aparezca en el eje X de barras
+    {
+        "inicio": "2025-05-05 08:00", "termino": "2025-05-05 09:00",
+        "comuna_nombre": "Ñuñoa", "sector": "Parque San Jorge",
+        "nombre": "Mayo mañana", "tema": "comida", "glosa_otro": None,
+        "email": "mayo1@example.com", "celular": "912340007",
+        "descripcion": "Feria de desayunos saludables", "foto": "foto18.jpg"
+    },
+    # antiguos de tarea2
+    {
+        "inicio": "2025-05-05 18:00", "termino": "2025-05-05 19:00",
+        "comuna_nombre": "Ñuñoa", "sector": "Parque San Jorge",
+        "nombre": "Mayo tarde", "tema": "música", "glosa_otro": None,
+        "email": "mayo2@example.com", "celular": "912340008",
+        "descripcion": "Concierto de bandas emergentes", "foto": "foto19.jpg"
+    },
     {
         "inicio": "2025-04-15 10:00", "termino": "2025-04-15 12:00",
         "comuna_nombre": "Puente Alto", "sector": "Cancha central",

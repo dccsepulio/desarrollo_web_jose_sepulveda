@@ -47,3 +47,7 @@ class ActividadForm(FlaskForm):
             DataRequired(message='Debe subir al menos una foto'),
             FileAllowed(['jpg','jpeg','png'], 'Solo imágenes JPG/PNG')
         ])
+
+class ComentarioForm(FlaskForm):
+    nombre = StringField('Nombre',  validators=[DataRequired(), Length(min=3, max=80)])
+    texto  = TextAreaField('Comentario', validators=[DataRequired(), Length(min=5)])
