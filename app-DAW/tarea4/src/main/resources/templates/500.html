@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="base :: layout">
+
+<th:block th:fragment="layout (
+    pageTitle='Error del Servidor (500)',
+    content = ~{::contenido},
+    extraCss = ~{::estilo},
+    extraJs  = ~{}
+)"></th:block>
+
+<style th:fragment="estilo">
+  .error-container {
+      text-align: center;
+      padding: 50px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+  }
+  .error-code {
+      font-size: 5rem;
+      font-weight: bold;
+      color: #d63031;
+      margin-bottom: 20px;
+  }
+  .error-message {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+  }
+  .error-details {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 30px 0;
+      text-align: left;
+  }
+  .error-actions {
+      margin-top: 40px;
+  }
+  .error-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 0 10px;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+  }
+  .error-btn:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+  }
+  .error-btn.secondary {
+      background-color: #95a5a6;
+  }
+  .error-btn.secondary:hover {
+      background-color: #7f8c8d;
+  }
+  .error-image {
+      max-width: 400px;
+      margin: 30px auto;
+      opacity: 0.8;
+  }
+  @media (max-width: 768px) {
+      .error-code {
+          font-size: 3rem;
+      }
+      .error-message {
+          font-size: 1.2rem;
+      }
+  }
+</style>
+
+<div class="error-container" th:fragment="contenido">
+  <div class="error-code">500</div>
+  <h2 class="error-message">¡Error interno del servidor!</h2>
+
+  <img class="error-image"
+       th:src="@{/img/500-error.svg}"
+       th:attr="onerror=|this.src='@{/img/500-error.png}'|"
+       alt="Error 500 - Error del servidor" />
+
+  <div class="error-details">
+    <p>Algo salió mal en nuestro servidor. Nuestro equipo ha sido notificado y está trabajando para solucionarlo.</p>
+
+    <!-- Solo muestra detalles si se pasó una variable "error" al modelo -->
+    <div th:if="${error != null}">
+      <p><strong>Detalles del error (modo desarrollo):</strong></p>
+      <pre th:text="${error}">Excepción</pre>
+    </div>
+  </div>
+
+  <div class="error-actions">
+    <a th:href="@{/'/'}" class="error-btn">🏠 Volver al inicio</a>
+    <a href="mailto:soporte@tusitio.com" class="error-btn secondary"> Contactar soporte</a>
+  </div>
+</div>

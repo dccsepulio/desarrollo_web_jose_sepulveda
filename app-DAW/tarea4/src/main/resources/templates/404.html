@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="base :: layout">
+
+<th:block th:fragment="layout (
+    pageTitle='Página no encontrada (404)',
+    content = ~{::contenido},
+    extraCss = ~{::estilo},
+    extraJs = ~{}
+)"></th:block>
+
+<style th:fragment="estilo">
+  .error-container {
+      text-align: center;
+      padding: 50px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+  }
+  .error-code {
+      font-size: 5rem;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-bottom: 20px;
+  }
+  .error-message {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+  }
+  .error-image {
+      max-width: 400px;
+      margin: 30px auto;
+  }
+  .home-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+  }
+  .home-link:hover {
+      background-color: #2980b9;
+  }
+</style>
+
+<div class="error-container" th:fragment="contenido">
+  <div class="error-code">404</div>
+  <h2 class="error-message">¡Ups! Página no encontrada</h2>
+
+  <img class="error-image"
+       th:src="@{/img/404-error.svg}"
+       th:attr="onerror=|this.src='@{/img/404-error.png}'|"
+       alt="Error 404 - Página no encontrada" />
+
+  <p>La página que estás buscando no existe o ha sido movida.</p>
+  <p>Puedes volver a la página de inicio o usar el menú de navegación.</p>
+
+  <a th:href="@{/'/'}" class="home-link">Volver al inicio</a>
+</div>

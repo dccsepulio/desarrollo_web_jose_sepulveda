@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title th:text="${pageTitle} ?: 'Actividades Recreativas'">Actividades Recreativas</title>
+        <link 
+            rel="stylesheet" 
+            th:href="@{/css/style.css}"
+        />
+        <link 
+            rel="icon" 
+            th:href="@{favicon.ico}"
+        />
+
+        <th:block th:replace="${extraCss}" />
+
+        <script th:src="@{/js/script.js}" defer></script>
+        <script th:src="@{/js/evaluar.js}" defer></script>
+    </head>
+    <body>
+        <header th:fragment="header">
+            <h1>Actividades Recreativas</h1>
+            <nav>
+            <ul class="horizontal-menu">
+                <li><a th:href="@{/}">Portada</a></li>
+                <li><a th:href="@{/actividades/agregar}">Agregar Actividad</a></li>
+                <li><a th:href="@{/actividades/terminadas}">Listado de Actividades</a></li>
+                <li><a th:href="@{/estadisticas}">Estadísticas</a></li>
+            </ul>
+            </nav>
+        </header>
+        <main>
+            <div th:if="${#request.flashMap.size() > 0}" style="margin: 1em 0;">
+            <div th:each="entry : ${#request.flashMap}"
+                class="alert"
+                th:text="${entry.value}">Mensaje flash</div>
+            </div>
+
+            <section th:replace="${content}">Contenido principal</section>
+
+            <th:block th:replace="${extraJs}" />
+        </main>
+        <footer th:fragment="footer">
+            <p>Fotos sacadas de
+            <a href="https://pixabay.com/" target="_blank">Pixabay</a>
+            </p>
+        </footer>
+    </body>
+</html>

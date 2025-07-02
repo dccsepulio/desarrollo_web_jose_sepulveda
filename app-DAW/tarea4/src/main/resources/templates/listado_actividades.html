@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: layout">
+
+<th:block th:fragment="layout (
+        pageTitle='Listado de actividades',
+        content = ~{::contenido},
+        extraCss = ~{},
+        extraJs  = ~{}
+    )"></th:block>
+
+<div th:fragment="contenido">
+  <h2>Actividades registradas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha Inicio</th>
+        <th>Sector</th>
+        <th>Nombre</th>
+        <th>Tema</th>
+        <th>Nota</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${actividadesPage.content}">
+      <td th:text="${a.id}">1</td>
+      <td th:text="${a.fechaInicio}">2025-06-02</td>
+      <td th:text="${a.sector}">sector</td>
+      <td th:text="${a.nombre}">nombre</td>
+      <td th:text="${a.tema}">tema</td>
+      <td th:text="${a.notaPromedio != null ? a.notaPromedio : '-'}">-</td>
+      <td><button class="btn-evaluar" th:attr="data-id=${a.id}">evaluar</button></td>
+    </tr>
+    <tr th:if="${actividadesPage.empty}">
+      <td colspan="7" style="text-align:center;">No hay actividades registradas.</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<nav class="paginacion">
+  <span th:if="${actividadesPage.hasPrevious()}">
+    <a th:href="@{/actividades/terminadas(page=${actividadesPage.number - 1})}">« Anterior</a>
+  </span>
+  <span> Página <span th:text="${actividadesPage.number + 1}">1</span> de <span th:text="${actividadesPage.totalPages}">1</span> </span>
+  <span th:if="${actividadesPage.hasNext()}">
+    <a th:href="@{/actividades/terminadas(page=${actividadesPage.number + 1})}">Siguiente »</a>
+  </span>
+</nav>
